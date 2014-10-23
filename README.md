@@ -22,7 +22,7 @@ Historia
 
 El origen de este proyecto fue la enfermedad de mi madre, que sufrió durante dos años una esclerosis lateral amiotrófica (ELA). Según avanzaba su enfermedad las dificultades para comunicarse eran cada vez mayores, y este teclado pretendía facilitarle la comunicación, ya que aunque no podía hablar sí podía mover un poco las manos.
 
-Mi madre se llamaba Juanita, de ahí el nombre de la aplicación. Ella murió en 2011, y yo dejé el proyecto olvidado, abrumado por la pena. Ahora unos compañeros que trabajan para mejorar la condición de vida de los discapacitados  ![] (http://paraguassolidario.com/) me lo han hecho recordar, y por eso lo publico aquí por si puede hacerle servicio a alguien.
+Mi madre se llamaba Juanita, de ahí el nombre de la aplicación. Ella murió en 2011, y yo dejé el proyecto olvidado, abrumado por la pena. Ahora unos compañeros que trabajan para mejorar la condición de vida de los discapacitados (http://paraguassolidario.com/) me lo han hecho recordar, y por eso lo publico aquí por si puede hacerle servicio a alguien.
 
 Mejoras
 -------
