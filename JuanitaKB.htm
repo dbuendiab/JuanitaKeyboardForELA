@@ -1,102 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head>
-    <title>Alfabeto táctil</title>
-    <style type="text/css">
-#todo   { position:absolute; width:100%; height:100%; text-align:center; }
-
-#L1     { width:100%; height:15%; background-color:#000; color:#FFF; font-size:5em; }
-
-#L2     { width:100%; height:51%; font-size:4em; }
-
-#L21         { float:left; width:44.4%; height:100%; }
-
-#L211             { width:100%; height:33.3%; }
-
-#L2111                { float:left; width:25%; height:100%; background-color:#BBF; }
-#L2112                { float:left; width:25%; height:100%; background-color:#BFB; }
-#L2113                { float:left; width:25%; height:100%; background-color:#BBF; }
-#L2114                { float:left; width:25%; height:100%; background-color:#BFB; }
-
-#L212             { width:100%; height:33.3%; }
-
-#L2121                { float:left; width:25%; height:100%; background-color:#BFB; }
-#L2122                { float:left; width:25%; height:100%; background-color:#BBF; }
-#L2123                { float:left; width:25%; height:100%; background-color:#BFB; }
-#L2124                { float:left; width:25%; height:100%; background-color:#BBF; }
-
-#L213             { width:100%; height:33.4%; }
-
-#L2131                { float:left; width:25%; height:100%; background-color:#BBF; }
-#L2132                { float:left; width:25%; height:100%; background-color:#BFB; }
-#L2133                { float:left; width:25%; height:100%; background-color:#BBF; }
-#L2134                { float:left; width:25%; height:100%; background-color:#BFB; }
-
-
-#L22         { float:left; width:11.1%; height:100%; }
-
-#L221             { width:100%; height:34.0%; background-color:#FFF; font-size:.3em; }
-#L222             { width:100%; height:33.0%; background-color:#EEE; }
-#L223             { width:100%; height:33.0%; background-color:#FFF; }
-
-
-#L23         { float:left; width:44.4%; height:100%;}
-
-#L231             { display:block; float:left; width:100%; height:34.0%; }
-
-#L2311                { float:left; width:25%; height:100%; background-color:#BBF; }
-#L2312                { float:left; width:25%; height:100%; background-color:#BFB; }
-#L2313                { float:left; width:25%; height:100%; background-color:#BBF; }
-#L2314                { float:left; width:25%; height:100%; background-color:#BFB; }
-
-#L232             { display:block; float:left; width:100%; height:33.0%; }
-
-#L2321                { float:left; width:25%; height:100%; background-color:#BFB; }
-#L2322                { float:left; width:25%; height:100%; background-color:#BBF; }
-#L2323                { float:left; width:25%; height:100%; background-color:#BFB; }
-#L2324                { float:left; width:25%; height:100%; background-color:#BBF; }
-
-#L233             { display:block; float:left; width:100%; height:33.0%; }
-
-#L2331                { float:left; width:25%; height:100%; background-color:#BBF; }
-#L2332                { float:left; width:25%; height:100%; background-color:#BFB; }
-#L2333                { float:left; width:25%; height:100%; background-color:#BBF; }
-#L2334                { float:left; width:25%; height:100%; background-color:#BFB; }
-
-#L3                 { width:100%; height:15%; font-size:4em; }
-
-#L31                { float:left; width:22.2%; height:100%; background-color:#3F3; font-weight:bold;}
-#L32                { float:left; width:11.1%; height:100%; background-color:#F88; }
-#L33                { float:left; width:11.1%; height:100%; background-color:#FF8; }
-#L34                { float:left; width:11.1%; height:100%; background-color:#F88; }
-#L35                { float:left; width:11.1%; height:100%; background-color:#FF8; }
-#L36                { float:left; width:11.1%; height:100%; background-color:#F88; }
-#L37                { float:left; width:22.2%; height:100%; background-color:#F33; font-weight:bold; }
-
-#L4                 { width:100%; height:15%; font-size:3em;}
-
-#L41                { float:left; width:20%; height:100%; background-color:#DDD; border:1px solid #000; }
-
-div.L41c            { width:100%; height:25%; }
-
-#L42                { float:left; width:40%; height:100%; border:1px solid #000; }
-
-#L421               { float:left; width:100%; height:30%; background-color:#DDD; font-size:.5em; }
-#L422               { float:left; width:100%; height:70%; }
-#L4221              { float:left; width:33.3%; height:100%; }
-#L4222              { float:left; width:33.3%; height:100%; }
-#L4223              { float:left; width:33.3%; height:100%; }
-
-#L43                { float:left; width:38%; height:100%; border:1px solid #000; }
-
-#L431               { float:left; width:100%; height:30%; background-color:#DDD; font-size:.5em; }
-#L432               { float:left; width:100%; height:70%; }
-#L4321              { float:left; width:50%; height:100%; }
-#L4322              { float:left; width:50%; height:100%; }
-
-#respuesta          { width:0px; height:0px; border:0px; }
-
-</style>
+    <title>Juanita Keyboard</title>
 <script type="text/javascript">
 <!--
 
@@ -125,6 +30,8 @@ function URLvoz( mensaje, idioma, engine, frameDest ) {
 //-------------------------------------------------------
 
 var textoCompleto = new String('');
+
+var Acentos = new Array("á", "é", "í", "ó", "ú", "ü", "¿");
 
 var Lista = new Array(
     "Hola",
@@ -309,6 +216,11 @@ function pulsaLetra( evt )
     else
         textoCompleto += nuevo;
     txt.innerHTML = Capitalize(textoCompleto);
+
+    if(Acentos.indexOf(nuevo) >= 0) {
+        mostrarNumeros(null);
+    }
+
 }
 
 function pulsaEspacio( evt )
@@ -369,9 +281,37 @@ function mostrarNumeros( evt )
     x.innerHTML             = ( x.innerHTML == 'll' ? '9' : 'll' );
     x.style.backgroundColor = ( x.innerHTML == 'll' ? '#BBF' : '#FFF' );
 
+    x = document.getElementById("L2134");
+    x.innerHTML             = ( x.innerHTML == 'm' ? '0' : 'm' );
+    x.style.backgroundColor = ( x.innerHTML == 'm' ? '#F88' : '#DDD' );
+
     x = document.getElementById("L32");
-    x.innerHTML             = ( x.innerHTML == 'a' ? '0' : 'a' );
-    x.style.backgroundColor = ( x.innerHTML == 'a' ? '#F88' : '#DDD' );
+    x.innerHTML             = ( x.innerHTML == 'a' ? 'á' : 'a' );
+    //x.style.backgroundColor = ( x.innerHTML == 'a' ? '#F88' : '#DDD' );
+
+    x = document.getElementById("L33");
+    x.innerHTML             = ( x.innerHTML == 'e' ? 'é' : 'e' );
+    //x.style.backgroundColor = ( x.innerHTML == 'e' ? '#F88' : '#DDD' );
+
+    x = document.getElementById("L34");
+    x.innerHTML             = ( x.innerHTML == 'i' ? 'í' : 'i' );
+    //x.style.backgroundColor = ( x.innerHTML == 'i' ? '#F88' : '#DDD' );
+
+    x = document.getElementById("L35");
+    x.innerHTML             = ( x.innerHTML == 'o' ? 'ó' : 'o' );
+    //x.style.backgroundColor = ( x.innerHTML == 'o' ? '#F88' : '#DDD' );
+
+    x = document.getElementById("L36");
+    x.innerHTML             = ( x.innerHTML == 'u' ? 'ú' : 'u' );
+    //x.style.backgroundColor = ( x.innerHTML == 'u' ? '#F88' : '#DDD' );
+
+    x = document.getElementById("L2332");
+    x.innerHTML             = ( x.innerHTML == 'x' ? 'ü' : 'x' );
+    x.style.backgroundColor = ( x.innerHTML == 'x' ? '#BFB' : '#FF8' );
+
+    x = document.getElementById("L222");
+    x.innerHTML             = ( x.innerHTML == '?' ? '¿' : '?' );
+    //x.style.backgroundColor = ( x.innerHTML == 'u' ? '#F88' : '#DDD' );
 
     numeros = ( numeros == 0 ? 1 : 0 );
 }
@@ -506,6 +446,101 @@ if (tipoNavegador = 2) // IE
 
 // --------------------------------------------------------------------->
 </script>
+    <style type="text/css">
+#todo   { position:absolute; width:100%; height:100%; text-align:center; }
+
+#L1     { width:100%; height:15%; background-color:#000; color:#FFF; font-size:5em; }
+
+#L2     { width:100%; height:51%; font-size:4em; }
+
+#L21         { float:left; width:44.4%; height:100%; }
+
+#L211             { width:100%; height:33.3%; }
+
+#L2111                { float:left; width:25%; height:100%; background-color:#BBF; }
+#L2112                { float:left; width:25%; height:100%; background-color:#BFB; }
+#L2113                { float:left; width:25%; height:100%; background-color:#BBF; }
+#L2114                { float:left; width:25%; height:100%; background-color:#BFB; }
+
+#L212             { width:100%; height:33.3%; }
+
+#L2121                { float:left; width:25%; height:100%; background-color:#BFB; }
+#L2122                { float:left; width:25%; height:100%; background-color:#BBF; }
+#L2123                { float:left; width:25%; height:100%; background-color:#BFB; }
+#L2124                { float:left; width:25%; height:100%; background-color:#BBF; }
+
+#L213             { width:100%; height:33.4%; }
+
+#L2131                { float:left; width:25%; height:100%; background-color:#BBF; }
+#L2132                { float:left; width:25%; height:100%; background-color:#BFB; }
+#L2133                { float:left; width:25%; height:100%; background-color:#BBF; }
+#L2134                { float:left; width:25%; height:100%; background-color:#BFB; }
+
+
+#L22         { float:left; width:11.1%; height:100%; }
+
+#L221             { width:100%; height:34.0%; background-color:#FFF; font-size:.3em; }
+#L222             { width:100%; height:33.0%; background-color:#EEE; }
+#L223             { width:100%; height:33.0%; background-color:#FFF; }
+
+
+#L23         { float:left; width:44.4%; height:100%;}
+
+#L231             { display:block; float:left; width:100%; height:34.0%; }
+
+#L2311                { float:left; width:25%; height:100%; background-color:#BBF; }
+#L2312                { float:left; width:25%; height:100%; background-color:#BFB; }
+#L2313                { float:left; width:25%; height:100%; background-color:#BBF; }
+#L2314                { float:left; width:25%; height:100%; background-color:#BFB; }
+
+#L232             { display:block; float:left; width:100%; height:33.0%; }
+
+#L2321                { float:left; width:25%; height:100%; background-color:#BFB; }
+#L2322                { float:left; width:25%; height:100%; background-color:#BBF; }
+#L2323                { float:left; width:25%; height:100%; background-color:#BFB; }
+#L2324                { float:left; width:25%; height:100%; background-color:#BBF; }
+
+#L233             { display:block; float:left; width:100%; height:33.0%; }
+
+#L2331                { float:left; width:25%; height:100%; background-color:#BBF; }
+#L2332                { float:left; width:25%; height:100%; background-color:#BFB; }
+#L2333                { float:left; width:25%; height:100%; background-color:#BBF; }
+#L2334                { float:left; width:25%; height:100%; background-color:#BFB; }
+
+#L3                 { width:100%; height:15%; font-size:4em; }
+
+#L31                { float:left; width:22.2%; height:100%; background-color:#3F3; font-weight:bold;}
+#L32                { float:left; width:11.1%; height:100%; background-color:#F88; }
+#L33                { float:left; width:11.1%; height:100%; background-color:#FF8; }
+#L34                { float:left; width:11.1%; height:100%; background-color:#F88; }
+#L35                { float:left; width:11.1%; height:100%; background-color:#FF8; }
+#L36                { float:left; width:11.1%; height:100%; background-color:#F88; }
+#L37                { float:left; width:22.2%; height:100%; background-color:#F33; font-weight:bold; }
+
+#L4                 { width:100%; height:15%; font-size:3em;}
+
+#L41                { float:left; width:20%; height:100%; background-color:#DDD; border:1px solid #000; }
+
+div.L41c            { width:100%; height:25%; }
+
+#L42                { float:left; width:40%; height:100%; border:1px solid #000; }
+
+#L421               { float:left; width:100%; height:30%; background-color:#DDD; font-size:.5em; }
+#L422               { float:left; width:100%; height:70%; }
+#L4221              { float:left; width:33.3%; height:100%; }
+#L4222              { float:left; width:33.3%; height:100%; }
+#L4223              { float:left; width:33.3%; height:100%; }
+
+#L43                { float:left; width:38%; height:100%; border:1px solid #000; }
+
+#L431               { float:left; width:100%; height:30%; background-color:#DDD; font-size:.5em; }
+#L432               { float:left; width:100%; height:70%; }
+#L4321              { float:left; width:50%; height:100%; }
+#L4322              { float:left; width:50%; height:100%; }
+
+#respuesta          { width:0px; height:0px; border:0px; }
+
+</style>
 </head>
 <body>
 <div id="todo">
@@ -572,7 +607,7 @@ if (tipoNavegador = 2) // IE
      <div id="L4">
         <div id="L41">
             <div class="L41c"></div>
-            <div class="L41c">Números</div>
+            <div class="L41c">Núm./Acentos</div>
             <div class="L41c"></div>
         </div>
         <div id="L42">
