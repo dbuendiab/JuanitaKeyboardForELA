@@ -1,0 +1,598 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <title>Alfabeto táctil</title>
+    <style type="text/css">
+#todo   { position:absolute; width:100%; height:100%; text-align:center; }
+
+#L1     { width:100%; height:15%; background-color:#000; color:#FFF; font-size:5em; }
+
+#L2     { width:100%; height:51%; font-size:4em; }
+
+#L21         { float:left; width:44.4%; height:100%; }
+
+#L211             { width:100%; height:33.3%; }
+
+#L2111                { float:left; width:25%; height:100%; background-color:#BBF; }
+#L2112                { float:left; width:25%; height:100%; background-color:#BFB; }
+#L2113                { float:left; width:25%; height:100%; background-color:#BBF; }
+#L2114                { float:left; width:25%; height:100%; background-color:#BFB; }
+
+#L212             { width:100%; height:33.3%; }
+
+#L2121                { float:left; width:25%; height:100%; background-color:#BFB; }
+#L2122                { float:left; width:25%; height:100%; background-color:#BBF; }
+#L2123                { float:left; width:25%; height:100%; background-color:#BFB; }
+#L2124                { float:left; width:25%; height:100%; background-color:#BBF; }
+
+#L213             { width:100%; height:33.4%; }
+
+#L2131                { float:left; width:25%; height:100%; background-color:#BBF; }
+#L2132                { float:left; width:25%; height:100%; background-color:#BFB; }
+#L2133                { float:left; width:25%; height:100%; background-color:#BBF; }
+#L2134                { float:left; width:25%; height:100%; background-color:#BFB; }
+
+
+#L22         { float:left; width:11.1%; height:100%; }
+
+#L221             { width:100%; height:34.0%; background-color:#FFF; font-size:.3em; }
+#L222             { width:100%; height:33.0%; background-color:#EEE; }
+#L223             { width:100%; height:33.0%; background-color:#FFF; }
+
+
+#L23         { float:left; width:44.4%; height:100%;}
+
+#L231             { display:block; float:left; width:100%; height:34.0%; }
+
+#L2311                { float:left; width:25%; height:100%; background-color:#BBF; }
+#L2312                { float:left; width:25%; height:100%; background-color:#BFB; }
+#L2313                { float:left; width:25%; height:100%; background-color:#BBF; }
+#L2314                { float:left; width:25%; height:100%; background-color:#BFB; }
+
+#L232             { display:block; float:left; width:100%; height:33.0%; }
+
+#L2321                { float:left; width:25%; height:100%; background-color:#BFB; }
+#L2322                { float:left; width:25%; height:100%; background-color:#BBF; }
+#L2323                { float:left; width:25%; height:100%; background-color:#BFB; }
+#L2324                { float:left; width:25%; height:100%; background-color:#BBF; }
+
+#L233             { display:block; float:left; width:100%; height:33.0%; }
+
+#L2331                { float:left; width:25%; height:100%; background-color:#BBF; }
+#L2332                { float:left; width:25%; height:100%; background-color:#BFB; }
+#L2333                { float:left; width:25%; height:100%; background-color:#BBF; }
+#L2334                { float:left; width:25%; height:100%; background-color:#BFB; }
+
+#L3                 { width:100%; height:15%; font-size:4em; }
+
+#L31                { float:left; width:22.2%; height:100%; background-color:#3F3; font-weight:bold;}
+#L32                { float:left; width:11.1%; height:100%; background-color:#F88; }
+#L33                { float:left; width:11.1%; height:100%; background-color:#FF8; }
+#L34                { float:left; width:11.1%; height:100%; background-color:#F88; }
+#L35                { float:left; width:11.1%; height:100%; background-color:#FF8; }
+#L36                { float:left; width:11.1%; height:100%; background-color:#F88; }
+#L37                { float:left; width:22.2%; height:100%; background-color:#F33; font-weight:bold; }
+
+#L4                 { width:100%; height:15%; font-size:3em;}
+
+#L41                { float:left; width:20%; height:100%; background-color:#DDD; border:1px solid #000; }
+
+div.L41c            { width:100%; height:25%; }
+
+#L42                { float:left; width:40%; height:100%; border:1px solid #000; }
+
+#L421               { float:left; width:100%; height:30%; background-color:#DDD; font-size:.5em; }
+#L422               { float:left; width:100%; height:70%; }
+#L4221              { float:left; width:33.3%; height:100%; }
+#L4222              { float:left; width:33.3%; height:100%; }
+#L4223              { float:left; width:33.3%; height:100%; }
+
+#L43                { float:left; width:38%; height:100%; border:1px solid #000; }
+
+#L431               { float:left; width:100%; height:30%; background-color:#DDD; font-size:.5em; }
+#L432               { float:left; width:100%; height:70%; }
+#L4321              { float:left; width:50%; height:100%; }
+#L4322              { float:left; width:50%; height:100%; }
+
+#respuesta          { width:0px; height:0px; border:0px; }
+
+</style>
+<script type="text/javascript">
+<!--
+
+//-- Elementos para la text-to-speech ---------
+var idioma = 'es';
+var engine = 'google';
+
+//-- mensaje es una string, idioma y engine las anteriores,
+//-- frameDest es el ID de un iframe oculto ----
+function URLvoz( mensaje, idioma, engine, frameDest ) {
+    //alert(mensaje);
+    var s;
+    if ( mensaje == '' )
+        s = '';
+    else
+    {
+        if ( engine == 'google' ) 
+            s = ( 'http://translate.google.com/translate_tts?tl=' + idioma + '&q=' + mensaje );
+        if ( engine == 'vozme') 
+            s = ( 'http://vozme.com/text2voice.php?lang=' + idioma + '&bookmarklet=1&gn=fm&interface=full&default_language=ca&text=' + mensaje );
+    }
+    if ( s != '' )
+        document.getElementById(frameDest).src = s;
+}
+
+//-------------------------------------------------------
+
+var textoCompleto = new String('');
+
+var Lista = new Array(
+    "Hola",
+    "Qué hora es?",
+    "Quiero agua",
+    "Quiero comer",
+    "Quiero ir al lavabo",
+    "Quiero dormir",
+    "Tengo calor",
+    "Tengo frío",
+    "No me gusta",
+    "Adiós" );
+
+var ListaIndex = 0
+
+var Navegador = navigator.appName;  
+
+var tipoNavegador = 0;
+if ( Navegador = 'Netscape' ) tipoNavegador = 1;
+if ( Navegador = 'Microsoft Internet Explorer' ) tipoNavegador = 2;
+
+var numeros = 0;
+
+var W, H; 
+ 
+//--------------------------------------------------------------------------------------
+
+function addEvent(elem, evtType, func)
+{
+   if (elem && typeof(elem) == "object")
+   {
+      if (elem.addEventListener)        // first try the W3C DOM method
+      {
+         elem.addEventListener(evtType, func, false);
+      }
+      else
+      {
+         elem["on" + evtType] = func;   // otherwise use the 'traditional' technique
+      }
+   }
+}
+
+//--------------------------------------------------------------------------------------
+
+function AsignaEventos()
+{
+    addEvent( document.getElementById("L2111"), "click", pulsaLetra );
+    addEvent( document.getElementById("L2112"), "click", pulsaLetra );
+    addEvent( document.getElementById("L2113"), "click", pulsaLetra );
+    addEvent( document.getElementById("L2114"), "click", pulsaLetra );
+
+    addEvent( document.getElementById("L2121"), "click", pulsaLetra );
+    addEvent( document.getElementById("L2122"), "click", pulsaLetra );
+    addEvent( document.getElementById("L2123"), "click", pulsaLetra );
+    addEvent( document.getElementById("L2124"), "click", pulsaLetra );
+
+    addEvent( document.getElementById("L2131"), "click", pulsaLetra );
+    addEvent( document.getElementById("L2132"), "click", pulsaLetra );
+    addEvent( document.getElementById("L2133"), "click", pulsaLetra );
+    addEvent( document.getElementById("L2134"), "click", pulsaLetra );
+
+    addEvent( document.getElementById("L221"), "click", pulsaEspacio ); // Caso especial (espacio) ----
+    addEvent( document.getElementById("L222"), "click", pulsaLetra );
+    addEvent( document.getElementById("L223"), "click", pulsaComa );
+
+    addEvent( document.getElementById("L2311"), "click", pulsaLetra );
+    addEvent( document.getElementById("L2312"), "click", pulsaLetra );
+    addEvent( document.getElementById("L2313"), "click", pulsaLetra );
+    addEvent( document.getElementById("L2314"), "click", pulsaLetra );
+
+    addEvent( document.getElementById("L2321"), "click", pulsaLetra );
+    addEvent( document.getElementById("L2322"), "click", pulsaLetra );
+    addEvent( document.getElementById("L2323"), "click", pulsaLetra );
+    addEvent( document.getElementById("L2324"), "click", pulsaLetra );
+
+    addEvent( document.getElementById("L2331"), "click", pulsaLetra );
+    addEvent( document.getElementById("L2332"), "click", pulsaLetra );
+    addEvent( document.getElementById("L2333"), "click", pulsaLetra );
+    addEvent( document.getElementById("L2334"), "click", pulsaLetra );
+
+    addEvent( document.getElementById("L31"), "click", pulsaLetra );
+
+    addEvent( document.getElementById("L32"), "click", pulsaLetra );
+    addEvent( document.getElementById("L33"), "click", pulsaLetra );
+    addEvent( document.getElementById("L34"), "click", pulsaLetra );
+    addEvent( document.getElementById("L35"), "click", pulsaLetra );
+    addEvent( document.getElementById("L36"), "click", pulsaLetra );
+    addEvent( document.getElementById("L37"), "click", pulsaLetra );
+
+    addEvent( document.getElementById("L41"), "click", mostrarNumeros );
+
+    addEvent( document.getElementById("L4221"), "click", borrarLetra );
+    addEvent( document.getElementById("L4222"), "click", borrarPalabra );
+    addEvent( document.getElementById("L4223"), "click", borrarTodo );
+    
+    addEvent( document.getElementById("L431"),  "click", lista0 );
+    addEvent( document.getElementById("L4321"), "click", listaMenos );
+    addEvent( document.getElementById("L4322"), "click", listaMas );
+
+    // evento para enviar a google translate la cadena (para leer en voz alta) ------
+    var sender = document.getElementById("L1");
+    sender.onclick = function() { URLvoz( textoCompleto, idioma, engine, "respuesta" ); }
+
+    addEvent( document.getElementById("L1"), "click", TextToSpeech );
+}
+
+//--------------------------------------------------------------------------------------
+
+function FormateaPagina()
+{
+    // Determinar ancho y alto disponible ----------------------------------------------------
+    H = screen.availHeight;
+    W = screen.availWidth;
+
+    if (window.innerWidth)
+     {
+          W = window.innerWidth,
+          H = window.innerHeight
+     }
+
+    // IE6 in standards compliant mode (i.e. with a valid doctype as the first line in the document)
+     else if (typeof document.documentElement != 'undefined'
+         && typeof document.documentElement.clientWidth !=
+         'undefined' && document.documentElement.clientWidth != 0)
+     {
+           W = document.documentElement.clientWidth,
+           H = document.documentElement.clientHeight
+     }
+
+    var factorEscala = ( Math.min(  W / 1440, H / 870 ) + Math.max(  W / 1440, H / 870 ) ) / 2; // Referido al tamaño original 1550x870 
+
+    document.getElementById("L1").style.fontSize =  6 * factorEscala + 'em';
+    document.getElementById("L2").style.fontSize =  6 * factorEscala + 'em';
+    document.getElementById("L221").style.fontSize =  0.3 * factorEscala + 'em';
+    document.getElementById("L3").style.fontSize =  6 * factorEscala + 'em';
+    document.getElementById("L4").style.fontSize =  3 * factorEscala + 'em';
+    document.getElementById("L421").style.fontSize =  0.5 * factorEscala + 'em';
+    document.getElementById("L431").style.fontSize =  0.5 * factorEscala + 'em';
+    
+    //window.document.title = 'Alto: ' + H + ', Ancho: ' + W + 'pixels: ' + pixelesBorde;
+
+    document.body.onselectstart = function () { return false; } // ie
+    document.body.onmousedown = function () { return false; } // mozilla
+}
+
+function TextToSpeech(evt)
+{
+    //alert(this.innerText);
+/*
+    var s;
+    s = 'http://translate.google.com/translate_tts?tl=es&q=' + this.innerText;
+    //alert(s);
+    //s = '<iframe style="display:none" src="' + s + '"></iframe>';
+    //alert(s);
+    
+    //s = '<embed src="' + s + '" width="300" height="42" ></embed> '
+    //document.getElementById('espacio_tts').innerHTML = s;
+
+    alert(s);
+    //s = '<video controls="" autoplay="" style="margin: auto; position:absolute; top:0; right:100; bottom:100; left:0;" name="media" src="' + s +'"></video>';
+
+    new w = window.open(s,"tts","width=450,height=300,resizable");
+*/
+}
+
+function Capitalize( s )
+{
+    if ( s.length > 1 )
+        s = s.substr(0,1).toUpperCase() + s.substring(1);
+    else
+        s = s.toUpperCase();
+    return s;
+}
+
+function pulsaLetra( evt )
+{
+    fader(this.id);
+    var txt = document.getElementById("L1");
+    var nuevo = this.innerHTML;
+    if ( nuevo == 'Sí' || nuevo == 'No' )
+        textoCompleto = nuevo;
+    else
+        textoCompleto += nuevo;
+    txt.innerHTML = Capitalize(textoCompleto);
+}
+
+function pulsaEspacio( evt )
+{
+    fader(this.id);   
+    var txt = document.getElementById("L1");
+    textoCompleto += ' ';
+    txt.innerHTML = Capitalize(textoCompleto);
+}
+
+function pulsaComa( evt )
+{
+    fader(this.id);
+    var txt = document.getElementById("L1");
+    textoCompleto += ',' + ( numeros == 0 ? ' ' : '' );
+    txt.innerHTML = Capitalize(textoCompleto);
+}
+
+//------------------------------------------------------------------------
+
+function mostrarNumeros( evt )
+{
+    var x;
+    x = document.getElementById("L2111");
+    x.innerHTML             = ( x.innerHTML == 'b' ? '1' : 'b' );
+    x.style.backgroundColor = ( x.innerHTML == 'b' ? '#BBF' : '#FFF' );
+    
+    x = document.getElementById("L2112");
+    x.innerHTML             = ( x.innerHTML == 'c' ? '2' : 'c' );
+    x.style.backgroundColor = ( x.innerHTML == 'c' ? '#BFB' : '#DDD' );
+   
+    x = document.getElementById("L2113");
+    x.innerHTML             = ( x.innerHTML == 'ch' ? '3' : 'ch' );
+    x.style.backgroundColor = ( x.innerHTML == 'ch' ? '#BBF' : '#FFF' );
+
+    x = document.getElementById("L2121");
+    x.innerHTML             = ( x.innerHTML == 'f' ? '4' : 'f' );
+    x.style.backgroundColor = ( x.innerHTML == 'f' ? '#BFB' : '#DDD' );
+   
+    x = document.getElementById("L2122");
+    x.innerHTML             = ( x.innerHTML == 'g' ? '5' : 'g' );
+    x.style.backgroundColor = ( x.innerHTML == 'g' ? '#BBF' : '#FFF' );
+    
+    x = document.getElementById("L2123");
+    x.innerHTML             = ( x.innerHTML == 'h' ? '6' : 'h' );
+    x.style.backgroundColor = ( x.innerHTML == 'h' ? '#BFB' : '#DDD' );
+
+    x = document.getElementById("L2131");
+    //alert(x.innerHTML);
+    x.innerHTML             = ( x.innerHTML == 'k' ? '7' : 'k' );
+    x.style.backgroundColor = ( x.innerHTML == 'k' ? '#BBF' : '#FFF' );
+    
+    x = document.getElementById("L2132");
+    x.innerHTML             = ( x.innerHTML == 'l' ? '8' : 'l' );
+    x.style.backgroundColor = ( x.innerHTML == 'l' ? '#BFB' : '#DDD' );
+    
+    x = document.getElementById("L2133");
+    x.innerHTML             = ( x.innerHTML == 'll' ? '9' : 'll' );
+    x.style.backgroundColor = ( x.innerHTML == 'll' ? '#BBF' : '#FFF' );
+
+    x = document.getElementById("L32");
+    x.innerHTML             = ( x.innerHTML == 'a' ? '0' : 'a' );
+    x.style.backgroundColor = ( x.innerHTML == 'a' ? '#F88' : '#DDD' );
+
+    numeros = ( numeros == 0 ? 1 : 0 );
+}
+
+//------------------------------------------------------------------------
+
+//--  Quita espacios por delante y por detrás ----
+function trim(str) {
+    return str.replace(/^\s+|\s+$/g,"");
+}
+    
+function borrarLetra( evt )
+{
+    var txt = document.getElementById("L1");
+    
+    textoCompleto = trim( textoCompleto );
+    var L = textoCompleto.length;
+    
+    textoCompleto = textoCompleto.substr( 0, L-1 );
+    txt.innerHTML = Capitalize(textoCompleto);
+
+}
+
+function borrarPalabra( evt )
+{
+    var txt = document.getElementById("L1");
+    
+    textoCompleto = trim( textoCompleto );
+    var idx = textoCompleto.lastIndexOf(" ");
+    if (idx > -1)
+        textoCompleto = textoCompleto.substring( 0, idx );
+    else
+    {
+        idx = textoCompleto.lastIndexOf(",");
+        if (idx > -1)
+            textoCompleto = textoCompleto.substring( 0, idx );
+        else
+            textoCompleto = '';
+    }    
+    txt.innerHTML = Capitalize(textoCompleto);
+}
+
+function borrarTodo( evt )
+{
+    textoCompleto = "";
+    var txt = document.getElementById("L1");
+    txt.innerHTML = textoCompleto;
+}
+
+//---------------------------------------------------------------------
+
+function lista0( evt )
+{
+   ListaIndex = 0;
+    document.getElementById("L1").innerHTML = Lista[ListaIndex];
+    
+}
+
+function listaMenos( evt )
+{
+    var n = Lista.length;
+    if( ListaIndex > 0 ) 
+        ListaIndex--;
+    else
+        ListaIndex = n-1;
+    textoCompleto = Lista[ListaIndex];
+    document.getElementById("L1").innerHTML = Lista[ListaIndex];
+}
+
+function listaMas( evt )
+{
+   var n = Lista.length;
+    if( ListaIndex < n-1 ) 
+        ListaIndex++;
+    else
+        ListaIndex = 0;
+    textoCompleto = Lista[ListaIndex];
+    document.getElementById("L1").innerHTML = Lista[ListaIndex];
+}
+
+//---------------------------------------------------------------------
+
+function Inicializar()
+{
+    FormateaPagina();
+    AsignaEventos();
+}
+
+//---------------------------------------------------------------------
+
+var elem_anterior;
+
+function fader(elem_id)
+{
+    //alert(this.id);
+    if(elem_anterior)
+        restore(elem_anterior);
+    elem_anterior = elem_id;
+    var x = document.getElementById(elem_id);
+    //alert('ancho antes: ' + x.style.zIndex);
+    x.style.border = '5px solid #000';
+    x.style.margin = '-5px';
+    //x.style.width = '100px';//( x.style.width - 10 ) + 'px';
+    //x.style.height = '100px';//( x.style.height - 10 ) + 'px';
+    //window.setTimeout("restore('" + this.id + "')", 500 );
+}
+
+function restore( elem_id )
+{
+    //alert(elem_id);
+    if(document.getElementById(elem_id))
+    {
+        var x = document.getElementById(elem_id);
+        x.style.border = '0px';
+        x.style.margin = '0px';
+        /*alert('ancho antes restore: ' + x.style.width);
+        x.style.width = ( x.style.width + 10 ) + 'px';
+        x.style.height = ( x.style.height + 10 ) + 'px';
+        alert('ancho tras restore: ' + x.style.width);*/
+    }
+}
+
+window.onload = Inicializar;
+
+// Muy importante: la asignación del evento es irrelevante en el caso Netscape, 
+// pero para el caso IE usar otra asignación distinta de attachEvent provoca 
+// el cuelgue de la página ----
+if (tipoNavegador = 1)  // Netscape
+    window.onresize = FormateaPagina;
+if (tipoNavegador = 2) // IE
+    window.attachEvent( 'onresize', FormateaPagina );
+
+// --------------------------------------------------------------------->
+</script>
+</head>
+<body>
+<div id="todo">
+    <div id="L1"><i>Toca la pantalla para escribir</i>
+    </div>
+    <div id="L2">
+        <div id="L21">
+            <div id="L211">
+                <div id="L2111">b</div>
+                <div id="L2112">c</div>
+                <div id="L2113">ch</div>
+                <div id="L2114">d</div>
+            </div>
+            <div id="L212">
+                <div id="L2121">f</div>
+                <div id="L2122">g</div>
+                <div id="L2123">h</div>
+                <div id="L2124">j</div>
+            </div>
+            <div id="L213">
+                <div id="L2131">k</div>
+                <div id="L2132">l</div>
+                <div id="L2133">ll</div>
+                <div id="L2134">m</div>
+            </div>
+        </div>
+        <div id="L22">
+            <div id="L221">ESPACIO</div>
+            <div id="L222">?</div>
+            <div id="L223">,</div>
+
+        </div>
+        <div id="L23">
+            <div id="L231">
+                <div id="L2311">n</div>
+                <div id="L2312">ñ</div>
+                <div id="L2313">p</div>
+                <div id="L2314">qu</div>
+            </div>
+            <div id="L232">
+                <div id="L2321">r</div>
+                <div id="L2322">s</div>
+                <div id="L2323">t</div>
+                <div id="L2324">v</div>
+            </div>
+            <div id="L233">
+                <div id="L2331">w</div>
+                <div id="L2332">x</div>
+                <div id="L2333">y</div>
+                <div id="L2334">z</div>
+           </div>
+        </div>
+   </div>
+    <div id="L3">
+        <div id="L31">Sí</div>
+        <div id="L32">a</div>
+        <div id="L33">e</div>
+        <div id="L34">i</div>
+        <div id="L35">o</div>
+        <div id="L36">u</div>
+        <div id="L37">No</div>
+    </div>
+
+     <div id="L4">
+        <div id="L41">
+            <div class="L41c"></div>
+            <div class="L41c">Números</div>
+            <div class="L41c"></div>
+        </div>
+        <div id="L42">
+            <div id="L421">Borrar:</div>
+            <div id="L422">
+                <div id="L4221">letra,</div>
+                <div id="L4222">palabra,</div>
+                <div id="L4223">todo.</div>
+            </div>
+        </div>
+        <div id="L43">
+            <div id="L431">Frase hecha:</div>
+            <div id="L432">
+                <div id="L4321">anterior,</div>
+                <div id="L4322">siguiente.</div>
+            </div>
+        </div>
+    </div>
+</div>
+<iframe id="respuesta"></iframe>
+</body>
+</html>
+
