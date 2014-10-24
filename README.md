@@ -3,7 +3,7 @@ Teclado Juanita para ELA
 
 ![] (https://github.com/dbuendiab/JuanitaKeyboardForELA/blob/master/alfabeto_tactil.jpg)
 
-Esto es una aplicación HTML concebida para ayudar a personas con dificultades para expresarse verbalmente. Se trata de un tablero con las letras del alfabeto, los números y varios comandos adicionales. El usuario pulsa los distintos caracteres para componer una frase, que se muestra en el panel superior. Si existe conectividad vía Internet, pulsando en el panel superior la frase se pronuncia, usando los recursos TTS de Google Translate.
+Esto es una [aplicación HTML](http://diegobuendia.com/JuanitaKB.htm "Juanita keyboard") concebida para ayudar a personas con dificultades para expresarse verbalmente. Se trata de un tablero con las letras del alfabeto, los números y varios comandos adicionales. El usuario pulsa los distintos caracteres para componer una frase, que se muestra en el panel superior. Si existe conectividad vía Internet, pulsando en el panel superior la frase se pronuncia, usando los recursos TTS de Google Translate.
 
 Características
 ---------------
@@ -24,11 +24,13 @@ El origen de este proyecto fue la enfermedad de mi madre, que sufrió durante do
 
 Mi madre se llamaba Juanita, de ahí el nombre de la aplicación. Ella murió en 2011, y yo dejé el proyecto olvidado, abrumado por la pena. Ahora unos compañeros que trabajan para mejorar la condición de vida de los discapacitados (http://paraguassolidario.com/) me lo han hecho recordar, y por eso lo publico aquí por si puede hacerle servicio a alguien.
 
-Mejoras
+Cambios
 -------
-Cosas que no han llegado a hacerse:
+23-oct-2014: Implementada la funcionalidad de mostrar acentos.
 
-- Una solución para los acentos. Quizás usar el conmutador de Números para conmutar también las vocales con sus versiones acentuadas. Eso llevaría a cambiar el cero de sitio, porque oculta la 'a'.
+Mejoras pendientes
+------------------
+
 - Un mecanismo multilingüe
 - Un sistema de modificación de las frases hechas. Aunque esto realmente es simple, ya que basta editar el código.
 
