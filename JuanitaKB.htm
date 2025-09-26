@@ -1,601 +1,353 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" >
+<!DOCTYPE html>
+<html lang="es">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Juanita Keyboard</title>
-<script type="text/javascript">
-<!--
-
-//-- Elementos para la text-to-speech ---------
-var idioma = 'es';
-var engine = 'google';
-
-//-- mensaje es una string, idioma y engine las anteriores,
-//-- frameDest es el ID de un iframe oculto ----
-function URLvoz( mensaje, idioma, engine, frameDest ) {
-    //alert(mensaje);
-    var s;
-    if ( mensaje == '' )
-        s = '';
-    else
-    {
-        if ( engine == 'google' ) 
-            s = ( 'http://translate.google.com/translate_tts?tl=' + idioma + '&q=' + mensaje );
-        if ( engine == 'vozme') 
-            s = ( 'http://vozme.com/text2voice.php?lang=' + idioma + '&bookmarklet=1&gn=fm&interface=full&default_language=ca&text=' + mensaje );
-    }
-    if ( s != '' )
-        document.getElementById(frameDest).src = s;
-}
-
-//-------------------------------------------------------
-
-var textoCompleto = new String('');
-
-var Acentos = new Array("á", "é", "í", "ó", "ú", "ü", "¿");
-
-var Lista = new Array(
-    "Hola",
-    "Qué hora es?",
-    "Quiero agua",
-    "Quiero comer",
-    "Quiero ir al lavabo",
-    "Quiero dormir",
-    "Tengo calor",
-    "Tengo frío",
-    "No me gusta",
-    "Adiós" );
-
-var ListaIndex = 0
-
-var Navegador = navigator.appName;  
-
-var tipoNavegador = 0;
-if ( Navegador = 'Netscape' ) tipoNavegador = 1;
-if ( Navegador = 'Microsoft Internet Explorer' ) tipoNavegador = 2;
-
-var numeros = 0;
-
-var W, H; 
- 
-//--------------------------------------------------------------------------------------
-
-function addEvent(elem, evtType, func)
-{
-   if (elem && typeof(elem) == "object")
-   {
-      if (elem.addEventListener)        // first try the W3C DOM method
-      {
-         elem.addEventListener(evtType, func, false);
-      }
-      else
-      {
-         elem["on" + evtType] = func;   // otherwise use the 'traditional' technique
-      }
-   }
-}
-
-//--------------------------------------------------------------------------------------
-
-function AsignaEventos()
-{
-    addEvent( document.getElementById("L2111"), "click", pulsaLetra );
-    addEvent( document.getElementById("L2112"), "click", pulsaLetra );
-    addEvent( document.getElementById("L2113"), "click", pulsaLetra );
-    addEvent( document.getElementById("L2114"), "click", pulsaLetra );
-
-    addEvent( document.getElementById("L2121"), "click", pulsaLetra );
-    addEvent( document.getElementById("L2122"), "click", pulsaLetra );
-    addEvent( document.getElementById("L2123"), "click", pulsaLetra );
-    addEvent( document.getElementById("L2124"), "click", pulsaLetra );
-
-    addEvent( document.getElementById("L2131"), "click", pulsaLetra );
-    addEvent( document.getElementById("L2132"), "click", pulsaLetra );
-    addEvent( document.getElementById("L2133"), "click", pulsaLetra );
-    addEvent( document.getElementById("L2134"), "click", pulsaLetra );
-
-    addEvent( document.getElementById("L221"), "click", pulsaEspacio ); // Caso especial (espacio) ----
-    addEvent( document.getElementById("L222"), "click", pulsaLetra );
-    addEvent( document.getElementById("L223"), "click", pulsaComa );
-
-    addEvent( document.getElementById("L2311"), "click", pulsaLetra );
-    addEvent( document.getElementById("L2312"), "click", pulsaLetra );
-    addEvent( document.getElementById("L2313"), "click", pulsaLetra );
-    addEvent( document.getElementById("L2314"), "click", pulsaLetra );
-
-    addEvent( document.getElementById("L2321"), "click", pulsaLetra );
-    addEvent( document.getElementById("L2322"), "click", pulsaLetra );
-    addEvent( document.getElementById("L2323"), "click", pulsaLetra );
-    addEvent( document.getElementById("L2324"), "click", pulsaLetra );
-
-    addEvent( document.getElementById("L2331"), "click", pulsaLetra );
-    addEvent( document.getElementById("L2332"), "click", pulsaLetra );
-    addEvent( document.getElementById("L2333"), "click", pulsaLetra );
-    addEvent( document.getElementById("L2334"), "click", pulsaLetra );
-
-    addEvent( document.getElementById("L31"), "click", pulsaLetra );
-
-    addEvent( document.getElementById("L32"), "click", pulsaLetra );
-    addEvent( document.getElementById("L33"), "click", pulsaLetra );
-    addEvent( document.getElementById("L34"), "click", pulsaLetra );
-    addEvent( document.getElementById("L35"), "click", pulsaLetra );
-    addEvent( document.getElementById("L36"), "click", pulsaLetra );
-    addEvent( document.getElementById("L37"), "click", pulsaLetra );
-
-    addEvent( document.getElementById("L41"), "click", mostrarNumeros );
-
-    addEvent( document.getElementById("L4221"), "click", borrarLetra );
-    addEvent( document.getElementById("L4222"), "click", borrarPalabra );
-    addEvent( document.getElementById("L4223"), "click", borrarTodo );
-    
-    addEvent( document.getElementById("L431"),  "click", lista0 );
-    addEvent( document.getElementById("L4321"), "click", listaMenos );
-    addEvent( document.getElementById("L4322"), "click", listaMas );
-
-    // evento para enviar a google translate la cadena (para leer en voz alta) ------
-    var sender = document.getElementById("L1");
-    sender.onclick = function() { URLvoz( textoCompleto, idioma, engine, "respuesta" ); }
-
-    addEvent( document.getElementById("L1"), "click", TextToSpeech );
-}
-
-//--------------------------------------------------------------------------------------
-
-function FormateaPagina()
-{
-    // Determinar ancho y alto disponible ----------------------------------------------------
-    H = screen.availHeight;
-    W = screen.availWidth;
-
-    if (window.innerWidth)
-     {
-          W = window.innerWidth,
-          H = window.innerHeight
-     }
-
-    // IE6 in standards compliant mode (i.e. with a valid doctype as the first line in the document)
-     else if (typeof document.documentElement != 'undefined'
-         && typeof document.documentElement.clientWidth !=
-         'undefined' && document.documentElement.clientWidth != 0)
-     {
-           W = document.documentElement.clientWidth,
-           H = document.documentElement.clientHeight
-     }
-
-    var factorEscala = ( Math.min(  W / 1440, H / 870 ) + Math.max(  W / 1440, H / 870 ) ) / 2; // Referido al tamaño original 1550x870 
-
-    document.getElementById("L1").style.fontSize =  6 * factorEscala + 'em';
-    document.getElementById("L2").style.fontSize =  6 * factorEscala + 'em';
-    document.getElementById("L221").style.fontSize =  0.3 * factorEscala + 'em';
-    document.getElementById("L3").style.fontSize =  6 * factorEscala + 'em';
-    document.getElementById("L4").style.fontSize =  3 * factorEscala + 'em';
-    document.getElementById("L421").style.fontSize =  0.5 * factorEscala + 'em';
-    document.getElementById("L431").style.fontSize =  0.5 * factorEscala + 'em';
-    
-    //window.document.title = 'Alto: ' + H + ', Ancho: ' + W + 'pixels: ' + pixelesBorde;
-
-    document.body.onselectstart = function () { return false; } // ie
-    document.body.onmousedown = function () { return false; } // mozilla
-}
-
-function TextToSpeech(evt)
-{
-    //alert(this.innerText);
-/*
-    var s;
-    s = 'http://translate.google.com/translate_tts?tl=es&q=' + this.innerText;
-    //alert(s);
-    //s = '<iframe style="display:none" src="' + s + '"></iframe>';
-    //alert(s);
-    
-    //s = '<embed src="' + s + '" width="300" height="42" ></embed> '
-    //document.getElementById('espacio_tts').innerHTML = s;
-
-    alert(s);
-    //s = '<video controls="" autoplay="" style="margin: auto; position:absolute; top:0; right:100; bottom:100; left:0;" name="media" src="' + s +'"></video>';
-
-    new w = window.open(s,"tts","width=450,height=300,resizable");
-*/
-}
-
-function Capitalize( s )
-{
-    if ( s.length > 1 )
-        s = s.substr(0,1).toUpperCase() + s.substring(1);
-    else
-        s = s.toUpperCase();
-    return s;
-}
-
-function pulsaLetra( evt )
-{
-    fader(this.id);
-    var txt = document.getElementById("L1");
-    var nuevo = this.innerHTML;
-    if ( nuevo == 'Sí' || nuevo == 'No' )
-        textoCompleto = nuevo;
-    else
-        textoCompleto += nuevo;
-    txt.innerHTML = Capitalize(textoCompleto);
-
-    if(Acentos.indexOf(nuevo) >= 0) {
-        mostrarNumeros(null);
-    }
-
-}
-
-function pulsaEspacio( evt )
-{
-    fader(this.id);   
-    var txt = document.getElementById("L1");
-    textoCompleto += ' ';
-    txt.innerHTML = Capitalize(textoCompleto);
-}
-
-function pulsaComa( evt )
-{
-    fader(this.id);
-    var txt = document.getElementById("L1");
-    textoCompleto += ',' + ( numeros == 0 ? ' ' : '' );
-    txt.innerHTML = Capitalize(textoCompleto);
-}
-
-//------------------------------------------------------------------------
-
-function mostrarNumeros( evt )
-{
-    var x;
-    x = document.getElementById("L2111");
-    x.innerHTML             = ( x.innerHTML == 'b' ? '1' : 'b' );
-    x.style.backgroundColor = ( x.innerHTML == 'b' ? '#BBF' : '#FFF' );
-    
-    x = document.getElementById("L2112");
-    x.innerHTML             = ( x.innerHTML == 'c' ? '2' : 'c' );
-    x.style.backgroundColor = ( x.innerHTML == 'c' ? '#BFB' : '#DDD' );
-   
-    x = document.getElementById("L2113");
-    x.innerHTML             = ( x.innerHTML == 'ch' ? '3' : 'ch' );
-    x.style.backgroundColor = ( x.innerHTML == 'ch' ? '#BBF' : '#FFF' );
-
-    x = document.getElementById("L2121");
-    x.innerHTML             = ( x.innerHTML == 'f' ? '4' : 'f' );
-    x.style.backgroundColor = ( x.innerHTML == 'f' ? '#BFB' : '#DDD' );
-   
-    x = document.getElementById("L2122");
-    x.innerHTML             = ( x.innerHTML == 'g' ? '5' : 'g' );
-    x.style.backgroundColor = ( x.innerHTML == 'g' ? '#BBF' : '#FFF' );
-    
-    x = document.getElementById("L2123");
-    x.innerHTML             = ( x.innerHTML == 'h' ? '6' : 'h' );
-    x.style.backgroundColor = ( x.innerHTML == 'h' ? '#BFB' : '#DDD' );
-
-    x = document.getElementById("L2131");
-    //alert(x.innerHTML);
-    x.innerHTML             = ( x.innerHTML == 'k' ? '7' : 'k' );
-    x.style.backgroundColor = ( x.innerHTML == 'k' ? '#BBF' : '#FFF' );
-    
-    x = document.getElementById("L2132");
-    x.innerHTML             = ( x.innerHTML == 'l' ? '8' : 'l' );
-    x.style.backgroundColor = ( x.innerHTML == 'l' ? '#BFB' : '#DDD' );
-    
-    x = document.getElementById("L2133");
-    x.innerHTML             = ( x.innerHTML == 'll' ? '9' : 'll' );
-    x.style.backgroundColor = ( x.innerHTML == 'll' ? '#BBF' : '#FFF' );
-
-    x = document.getElementById("L2134");
-    x.innerHTML             = ( x.innerHTML == 'm' ? '0' : 'm' );
-    x.style.backgroundColor = ( x.innerHTML == 'm' ? '#F88' : '#DDD' );
-
-    x = document.getElementById("L32");
-    x.innerHTML             = ( x.innerHTML == 'a' ? 'á' : 'a' );
-    //x.style.backgroundColor = ( x.innerHTML == 'a' ? '#F88' : '#DDD' );
-
-    x = document.getElementById("L33");
-    x.innerHTML             = ( x.innerHTML == 'e' ? 'é' : 'e' );
-    //x.style.backgroundColor = ( x.innerHTML == 'e' ? '#F88' : '#DDD' );
-
-    x = document.getElementById("L34");
-    x.innerHTML             = ( x.innerHTML == 'i' ? 'í' : 'i' );
-    //x.style.backgroundColor = ( x.innerHTML == 'i' ? '#F88' : '#DDD' );
-
-    x = document.getElementById("L35");
-    x.innerHTML             = ( x.innerHTML == 'o' ? 'ó' : 'o' );
-    //x.style.backgroundColor = ( x.innerHTML == 'o' ? '#F88' : '#DDD' );
-
-    x = document.getElementById("L36");
-    x.innerHTML             = ( x.innerHTML == 'u' ? 'ú' : 'u' );
-    //x.style.backgroundColor = ( x.innerHTML == 'u' ? '#F88' : '#DDD' );
-
-    x = document.getElementById("L2332");
-    x.innerHTML             = ( x.innerHTML == 'x' ? 'ü' : 'x' );
-    x.style.backgroundColor = ( x.innerHTML == 'x' ? '#BFB' : '#FF8' );
-
-    x = document.getElementById("L222");
-    x.innerHTML             = ( x.innerHTML == '?' ? '¿' : '?' );
-    //x.style.backgroundColor = ( x.innerHTML == 'u' ? '#F88' : '#DDD' );
-
-    numeros = ( numeros == 0 ? 1 : 0 );
-}
-
-//------------------------------------------------------------------------
-
-//--  Quita espacios por delante y por detrás ----
-function trim(str) {
-    return str.replace(/^\s+|\s+$/g,"");
-}
-    
-function borrarLetra( evt )
-{
-    var txt = document.getElementById("L1");
-    
-    textoCompleto = trim( textoCompleto );
-    var L = textoCompleto.length;
-    
-    textoCompleto = textoCompleto.substr( 0, L-1 );
-    txt.innerHTML = Capitalize(textoCompleto);
-
-}
-
-function borrarPalabra( evt )
-{
-    var txt = document.getElementById("L1");
-    
-    textoCompleto = trim( textoCompleto );
-    var idx = textoCompleto.lastIndexOf(" ");
-    if (idx > -1)
-        textoCompleto = textoCompleto.substring( 0, idx );
-    else
-    {
-        idx = textoCompleto.lastIndexOf(",");
-        if (idx > -1)
-            textoCompleto = textoCompleto.substring( 0, idx );
-        else
-            textoCompleto = '';
-    }    
-    txt.innerHTML = Capitalize(textoCompleto);
-}
-
-function borrarTodo( evt )
-{
-    textoCompleto = "";
-    var txt = document.getElementById("L1");
-    txt.innerHTML = textoCompleto;
-}
-
-//---------------------------------------------------------------------
-
-function lista0( evt )
-{
-   ListaIndex = 0;
-    document.getElementById("L1").innerHTML = Lista[ListaIndex];
-    
-}
-
-function listaMenos( evt )
-{
-    var n = Lista.length;
-    if( ListaIndex > 0 ) 
-        ListaIndex--;
-    else
-        ListaIndex = n-1;
-    textoCompleto = Lista[ListaIndex];
-    document.getElementById("L1").innerHTML = Lista[ListaIndex];
-}
-
-function listaMas( evt )
-{
-   var n = Lista.length;
-    if( ListaIndex < n-1 ) 
-        ListaIndex++;
-    else
-        ListaIndex = 0;
-    textoCompleto = Lista[ListaIndex];
-    document.getElementById("L1").innerHTML = Lista[ListaIndex];
-}
-
-//---------------------------------------------------------------------
-
-function Inicializar()
-{
-    FormateaPagina();
-    AsignaEventos();
-}
-
-//---------------------------------------------------------------------
-
-var elem_anterior;
-
-function fader(elem_id)
-{
-    //alert(this.id);
-    if(elem_anterior)
-        restore(elem_anterior);
-    elem_anterior = elem_id;
-    var x = document.getElementById(elem_id);
-    //alert('ancho antes: ' + x.style.zIndex);
-    x.style.border = '5px solid #000';
-    x.style.margin = '-5px';
-    //x.style.width = '100px';//( x.style.width - 10 ) + 'px';
-    //x.style.height = '100px';//( x.style.height - 10 ) + 'px';
-    //window.setTimeout("restore('" + this.id + "')", 500 );
-}
-
-function restore( elem_id )
-{
-    //alert(elem_id);
-    if(document.getElementById(elem_id))
-    {
-        var x = document.getElementById(elem_id);
-        x.style.border = '0px';
-        x.style.margin = '0px';
-        /*alert('ancho antes restore: ' + x.style.width);
-        x.style.width = ( x.style.width + 10 ) + 'px';
-        x.style.height = ( x.style.height + 10 ) + 'px';
-        alert('ancho tras restore: ' + x.style.width);*/
-    }
-}
-
-window.onload = Inicializar;
-
-// Muy importante: la asignación del evento es irrelevante en el caso Netscape, 
-// pero para el caso IE usar otra asignación distinta de attachEvent provoca 
-// el cuelgue de la página ----
-if (tipoNavegador = 1)  // Netscape
-    window.onresize = FormateaPagina;
-if (tipoNavegador = 2) // IE
-    window.attachEvent( 'onresize', FormateaPagina );
-
-// --------------------------------------------------------------------->
-</script>
     <style type="text/css">
-#todo   { position:absolute; width:100%; height:100%; text-align:center; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-#L1     { width:100%; height:15%; background-color:#000; color:#FFF; font-size:5em; }
+        body {
+            overflow: hidden;
+            user-select: none;
+            -webkit-user-select: none;
+        }
 
-#L2     { width:100%; height:51%; font-size:4em; }
+        #todo {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+        }
 
-#L21         { float:left; width:44.4%; height:100%; }
+        #L1 {
+            width: 100%;
+            height: 15%;
+            background-color: #000;
+            color: #FFF;
+            font-size: 5em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
 
-#L211             { width:100%; height:33.3%; }
+        #L2 {
+            width: 100%;
+            height: 51%;
+            font-size: 4em;
+            display: flex;
+        }
 
-#L2111                { float:left; width:25%; height:100%; background-color:#BBF; }
-#L2112                { float:left; width:25%; height:100%; background-color:#BFB; }
-#L2113                { float:left; width:25%; height:100%; background-color:#BBF; }
-#L2114                { float:left; width:25%; height:100%; background-color:#BFB; }
+        #L21 {
+            width: 44.4%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
 
-#L212             { width:100%; height:33.3%; }
+        #L211, #L212, #L213 {
+            width: 100%;
+            display: flex;
+        }
 
-#L2121                { float:left; width:25%; height:100%; background-color:#BFB; }
-#L2122                { float:left; width:25%; height:100%; background-color:#BBF; }
-#L2123                { float:left; width:25%; height:100%; background-color:#BFB; }
-#L2124                { float:left; width:25%; height:100%; background-color:#BBF; }
+        #L211 {
+            height: 33.3%;
+        }
 
-#L213             { width:100%; height:33.4%; }
+        #L212 {
+            height: 33.3%;
+        }
 
-#L2131                { float:left; width:25%; height:100%; background-color:#BBF; }
-#L2132                { float:left; width:25%; height:100%; background-color:#BFB; }
-#L2133                { float:left; width:25%; height:100%; background-color:#BBF; }
-#L2134                { float:left; width:25%; height:100%; background-color:#BFB; }
+        #L213 {
+            height: 33.4%;
+        }
 
+        .letra {
+            width: 25%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
 
-#L22         { float:left; width:11.1%; height:100%; }
+        #L2111, #L2113, #L2122, #L2124, #L2131, #L2133 {
+            background-color: #BBF;
+        }
 
-#L221             { width:100%; height:34.0%; background-color:#FFF; font-size:.3em; }
-#L222             { width:100%; height:33.0%; background-color:#EEE; }
-#L223             { width:100%; height:33.0%; background-color:#FFF; }
+        #L2112, #L2114, #L2121, #L2123, #L2132, #L2134 {
+            background-color: #BFB;
+        }
 
+        #L22 {
+            width: 11.1%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
 
-#L23         { float:left; width:44.4%; height:100%;}
+        #L221 {
+            width: 100%;
+            height: 34.0%;
+            background-color: #FFF;
+            font-size: 0.3em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
 
-#L231             { display:block; float:left; width:100%; height:34.0%; }
+        #L222 {
+            width: 100%;
+            height: 33.0%;
+            background-color: #EEE;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
 
-#L2311                { float:left; width:25%; height:100%; background-color:#BBF; }
-#L2312                { float:left; width:25%; height:100%; background-color:#BFB; }
-#L2313                { float:left; width:25%; height:100%; background-color:#BBF; }
-#L2314                { float:left; width:25%; height:100%; background-color:#BFB; }
+        #L223 {
+            width: 100%;
+            height: 33.0%;
+            background-color: #FFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
 
-#L232             { display:block; float:left; width:100%; height:33.0%; }
+        #L23 {
+            width: 44.4%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
 
-#L2321                { float:left; width:25%; height:100%; background-color:#BFB; }
-#L2322                { float:left; width:25%; height:100%; background-color:#BBF; }
-#L2323                { float:left; width:25%; height:100%; background-color:#BFB; }
-#L2324                { float:left; width:25%; height:100%; background-color:#BBF; }
+        #L231, #L232, #L233 {
+            width: 100%;
+            display: flex;
+        }
 
-#L233             { display:block; float:left; width:100%; height:33.0%; }
+        #L231 {
+            height: 34.0%;
+        }
 
-#L2331                { float:left; width:25%; height:100%; background-color:#BBF; }
-#L2332                { float:left; width:25%; height:100%; background-color:#BFB; }
-#L2333                { float:left; width:25%; height:100%; background-color:#BBF; }
-#L2334                { float:left; width:25%; height:100%; background-color:#BFB; }
+        #L232, #L233 {
+            height: 33.0%;
+        }
 
-#L3                 { width:100%; height:15%; font-size:4em; }
+        #L2311, #L2313, #L2322, #L2324, #L2331, #L2333 {
+            background-color: #BBF;
+        }
 
-#L31                { float:left; width:22.2%; height:100%; background-color:#3F3; font-weight:bold;}
-#L32                { float:left; width:11.1%; height:100%; background-color:#F88; }
-#L33                { float:left; width:11.1%; height:100%; background-color:#FF8; }
-#L34                { float:left; width:11.1%; height:100%; background-color:#F88; }
-#L35                { float:left; width:11.1%; height:100%; background-color:#FF8; }
-#L36                { float:left; width:11.1%; height:100%; background-color:#F88; }
-#L37                { float:left; width:22.2%; height:100%; background-color:#F33; font-weight:bold; }
+        #L2312, #L2314, #L2321, #L2323, #L2332, #L2334 {
+            background-color: #BFB;
+        }
 
-#L4                 { width:100%; height:15%; font-size:3em;}
+        #L2332 {
+            background-color: #FF8;
+        }
 
-#L41                { float:left; width:20%; height:100%; background-color:#DDD; border:1px solid #000; }
+        #L3 {
+            width: 100%;
+            height: 15%;
+            font-size: 4em;
+            display: flex;
+        }
 
-div.L41c            { width:100%; height:25%; }
+        #L31 {
+            width: 22.2%;
+            height: 100%;
+            background-color: #3F3;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
 
-#L42                { float:left; width:40%; height:100%; border:1px solid #000; }
+        #L32, #L33, #L34, #L35, #L36 {
+            width: 11.1%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
 
-#L421               { float:left; width:100%; height:30%; background-color:#DDD; font-size:.5em; }
-#L422               { float:left; width:100%; height:70%; }
-#L4221              { float:left; width:33.3%; height:100%; }
-#L4222              { float:left; width:33.3%; height:100%; }
-#L4223              { float:left; width:33.3%; height:100%; }
+        #L32, #L34, #L36 {
+            background-color: #F88;
+        }
 
-#L43                { float:left; width:38%; height:100%; border:1px solid #000; }
+        #L33, #L35 {
+            background-color: #FF8;
+        }
 
-#L431               { float:left; width:100%; height:30%; background-color:#DDD; font-size:.5em; }
-#L432               { float:left; width:100%; height:70%; }
-#L4321              { float:left; width:50%; height:100%; }
-#L4322              { float:left; width:50%; height:100%; }
+        #L37 {
+            width: 22.2%;
+            height: 100%;
+            background-color: #F33;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
 
-#respuesta          { width:0px; height:0px; border:0px; }
+        #L4 {
+            width: 100%;
+            height: 15%;
+            font-size: 3em;
+            display: flex;
+        }
 
-</style>
+        #L41 {
+            width: 20%;
+            height: 100%;
+            background-color: #DDD;
+            border: 1px solid #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        #L42 {
+            width: 40%;
+            height: 100%;
+            border: 1px solid #000;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #L421 {
+            width: 100%;
+            height: 30%;
+            background-color: #DDD;
+            font-size: 0.5em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #L422 {
+            width: 100%;
+            height: 70%;
+            display: flex;
+        }
+
+        #L4221, #L4222, #L4223 {
+            width: 33.3%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        #L43 {
+            width: 38%;
+            height: 100%;
+            border: 1px solid #000;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #L431 {
+            width: 100%;
+            height: 30%;
+            background-color: #DDD;
+            font-size: 0.5em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #L432 {
+            width: 100%;
+            height: 70%;
+            display: flex;
+        }
+
+        #L4321, #L4322 {
+            width: 50%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .activo {
+            border: 5px solid #000 !important;
+            box-sizing: border-box;
+        }
+    </style>
 </head>
 <body>
 <div id="todo">
-    <div id="L1"><i>Toca la pantalla para escribir</i>
-    </div>
+    <div id="L1"><i>Toca la pantalla para escribir</i></div>
+    
     <div id="L2">
         <div id="L21">
             <div id="L211">
-                <div id="L2111">b</div>
-                <div id="L2112">c</div>
-                <div id="L2113">ch</div>
-                <div id="L2114">d</div>
+                <div id="L2111" class="letra">b</div>
+                <div id="L2112" class="letra">c</div>
+                <div id="L2113" class="letra">ch</div>
+                <div id="L2114" class="letra">d</div>
             </div>
             <div id="L212">
-                <div id="L2121">f</div>
-                <div id="L2122">g</div>
-                <div id="L2123">h</div>
-                <div id="L2124">j</div>
+                <div id="L2121" class="letra">f</div>
+                <div id="L2122" class="letra">g</div>
+                <div id="L2123" class="letra">h</div>
+                <div id="L2124" class="letra">j</div>
             </div>
             <div id="L213">
-                <div id="L2131">k</div>
-                <div id="L2132">l</div>
-                <div id="L2133">ll</div>
-                <div id="L2134">m</div>
+                <div id="L2131" class="letra">k</div>
+                <div id="L2132" class="letra">l</div>
+                <div id="L2133" class="letra">ll</div>
+                <div id="L2134" class="letra">m</div>
             </div>
         </div>
+        
         <div id="L22">
             <div id="L221">ESPACIO</div>
             <div id="L222">?</div>
             <div id="L223">,</div>
-
         </div>
+        
         <div id="L23">
             <div id="L231">
-                <div id="L2311">n</div>
-                <div id="L2312">ñ</div>
-                <div id="L2313">p</div>
-                <div id="L2314">qu</div>
+                <div id="L2311" class="letra">n</div>
+                <div id="L2312" class="letra">Ã±</div>
+                <div id="L2313" class="letra">p</div>
+                <div id="L2314" class="letra">qu</div>
             </div>
             <div id="L232">
-                <div id="L2321">r</div>
-                <div id="L2322">s</div>
-                <div id="L2323">t</div>
-                <div id="L2324">v</div>
+                <div id="L2321" class="letra">r</div>
+                <div id="L2322" class="letra">s</div>
+                <div id="L2323" class="letra">t</div>
+                <div id="L2324" class="letra">v</div>
             </div>
             <div id="L233">
-                <div id="L2331">w</div>
-                <div id="L2332">x</div>
-                <div id="L2333">y</div>
-                <div id="L2334">z</div>
-           </div>
+                <div id="L2331" class="letra">w</div>
+                <div id="L2332" class="letra">x</div>
+                <div id="L2333" class="letra">y</div>
+                <div id="L2334" class="letra">z</div>
+            </div>
         </div>
-   </div>
+    </div>
+    
     <div id="L3">
-        <div id="L31">Sí</div>
+        <div id="L31">SÃ­</div>
         <div id="L32">a</div>
         <div id="L33">e</div>
         <div id="L34">i</div>
@@ -604,12 +356,8 @@ div.L41c            { width:100%; height:25%; }
         <div id="L37">No</div>
     </div>
 
-     <div id="L4">
-        <div id="L41">
-            <div class="L41c"></div>
-            <div class="L41c">Núm./Acentos</div>
-            <div class="L41c"></div>
-        </div>
+    <div id="L4">
+        <div id="L41">NÃºm./Acentos</div>
         <div id="L42">
             <div id="L421">Borrar:</div>
             <div id="L422">
@@ -627,7 +375,278 @@ div.L41c            { width:100%; height:25%; }
         </div>
     </div>
 </div>
-<iframe id="respuesta"></iframe>
+
+<script type="text/javascript">
+// Variables globales
+let textoCompleto = '';
+let numeros = 0;
+let ListaIndex = 0;
+let elem_anterior = null;
+
+const Acentos = ["Ã¡", "Ã©", "Ã­", "Ã³", "Ãº", "Ã¼", "Â¿"];
+
+const Lista = [
+    "Hola",
+    "QuÃ© hora es?",
+    "Quiero agua",
+    "Quiero comer",
+    "Quiero ir al lavabo",
+    "Quiero dormir",
+    "Tengo calor",
+    "Tengo frÃ­o",
+    "No me gusta",
+    "AdiÃ³s"
+];
+
+// Funciones de utilidad
+function capitalize(s) {
+    if (s.length > 1) {
+        return s.substr(0, 1).toUpperCase() + s.substring(1);
+    } else {
+        return s.toUpperCase();
+    }
+}
+
+function trim(str) {
+    return str.replace(/^\s+|\s+$/g, "");
+}
+
+// Text-to-Speech con Web Speech API
+function textToSpeech() {
+    if ('speechSynthesis' in window && textoCompleto.trim() !== '') {
+        // Cancelar cualquier sÃ­ntesis en curso
+        window.speechSynthesis.cancel();
+        
+        const utterance = new SpeechSynthesisUtterance(textoCompleto);
+        utterance.lang = 'es-ES';
+        utterance.rate = 0.5;
+        utterance.pitch = 1;
+        utterance.volume = 1;
+        
+        window.speechSynthesis.speak(utterance);
+    } else if (!('speechSynthesis' in window)) {
+        alert('Tu navegador no soporta sÃ­ntesis de voz');
+    }
+}
+
+// Efectos visuales
+function fader(elem_id) {
+    if (elem_anterior) {
+        restore(elem_anterior);
+    }
+    elem_anterior = elem_id;
+    const x = document.getElementById(elem_id);
+    if (x) {
+        x.classList.add('activo');
+        setTimeout(() => restore(elem_id), 300);
+    }
+}
+
+function restore(elem_id) {
+    const x = document.getElementById(elem_id);
+    if (x) {
+        x.classList.remove('activo');
+    }
+}
+
+// Funciones de escritura
+function pulsaLetra(evt) {
+    fader(this.id);
+    const txt = document.getElementById("L1");
+    const nuevo = this.innerHTML;
+    
+    if (nuevo === 'SÃ­' || nuevo === 'No') {
+        textoCompleto = nuevo;
+    } else {
+        textoCompleto += nuevo;
+    }
+    
+    txt.innerHTML = capitalize(textoCompleto);
+
+    if (Acentos.indexOf(nuevo) >= 0) {
+        mostrarNumeros();
+    }
+}
+
+function pulsaEspacio() {
+    fader(this.id);   
+    const txt = document.getElementById("L1");
+    textoCompleto += ' ';
+    txt.innerHTML = capitalize(textoCompleto);
+}
+
+function pulsaComa() {
+    fader(this.id);
+    const txt = document.getElementById("L1");
+    textoCompleto += ',' + (numeros === 0 ? ' ' : '');
+    txt.innerHTML = capitalize(textoCompleto);
+}
+
+// Alternar nÃºmeros y acentos
+function mostrarNumeros() {
+    const cambios = [
+        {id: 'L2111', texto: ['b', '1'], colores: ['#BBF', '#FFF']},
+        {id: 'L2112', texto: ['c', '2'], colores: ['#BFB', '#DDD']},
+        {id: 'L2113', texto: ['ch', '3'], colores: ['#BBF', '#FFF']},
+        {id: 'L2121', texto: ['f', '4'], colores: ['#BFB', '#DDD']},
+        {id: 'L2122', texto: ['g', '5'], colores: ['#BBF', '#FFF']},
+        {id: 'L2123', texto: ['h', '6'], colores: ['#BFB', '#DDD']},
+        {id: 'L2131', texto: ['k', '7'], colores: ['#BBF', '#FFF']},
+        {id: 'L2132', texto: ['l', '8'], colores: ['#BFB', '#DDD']},
+        {id: 'L2133', texto: ['ll', '9'], colores: ['#BBF', '#FFF']},
+        {id: 'L2134', texto: ['m', '0'], colores: ['#BFB', '#F88']},
+        {id: 'L32', texto: ['a', 'Ã¡'], colores: null},
+        {id: 'L33', texto: ['e', 'Ã©'], colores: null},
+        {id: 'L34', texto: ['i', 'Ã­'], colores: null},
+        {id: 'L35', texto: ['o', 'Ã³'], colores: null},
+        {id: 'L36', texto: ['u', 'Ãº'], colores: null},
+        {id: 'L2332', texto: ['x', 'Ã¼'], colores: ['#FF8', '#BFB']},
+        {id: 'L222', texto: ['?', 'Â¿'], colores: null}
+    ];
+
+    cambios.forEach(cambio => {
+        const elem = document.getElementById(cambio.id);
+        const esLetra = elem.innerHTML === cambio.texto[0];
+        elem.innerHTML = esLetra ? cambio.texto[1] : cambio.texto[0];
+        
+        if (cambio.colores) {
+            elem.style.backgroundColor = esLetra ? cambio.colores[1] : cambio.colores[0];
+        }
+    });
+
+    numeros = numeros === 0 ? 1 : 0;
+}
+
+// Funciones de borrado
+function borrarLetra() {
+    const txt = document.getElementById("L1");
+    textoCompleto = trim(textoCompleto);
+    const L = textoCompleto.length;
+    textoCompleto = textoCompleto.substr(0, L - 1);
+    txt.innerHTML = capitalize(textoCompleto);
+}
+
+function borrarPalabra() {
+    const txt = document.getElementById("L1");
+    textoCompleto = trim(textoCompleto);
+    let idx = textoCompleto.lastIndexOf(" ");
+    
+    if (idx > -1) {
+        textoCompleto = textoCompleto.substring(0, idx);
+    } else {
+        idx = textoCompleto.lastIndexOf(",");
+        if (idx > -1) {
+            textoCompleto = textoCompleto.substring(0, idx);
+        } else {
+            textoCompleto = '';
+        }
+    }
+    txt.innerHTML = capitalize(textoCompleto);
+}
+
+function borrarTodo() {
+    textoCompleto = "";
+    const txt = document.getElementById("L1");
+    txt.innerHTML = textoCompleto;
+}
+
+// Funciones de lista
+function lista0() {
+    ListaIndex = 0;
+    textoCompleto = Lista[ListaIndex];
+    document.getElementById("L1").innerHTML = Lista[ListaIndex];
+}
+
+function listaMenos() {
+    const n = Lista.length;
+    if (ListaIndex > 0) {
+        ListaIndex--;
+    } else {
+        ListaIndex = n - 1;
+    }
+    textoCompleto = Lista[ListaIndex];
+    document.getElementById("L1").innerHTML = Lista[ListaIndex];
+}
+
+function listaMas() {
+    const n = Lista.length;
+    if (ListaIndex < n - 1) {
+        ListaIndex++;
+    } else {
+        ListaIndex = 0;
+    }
+    textoCompleto = Lista[ListaIndex];
+    document.getElementById("L1").innerHTML = Lista[ListaIndex];
+}
+
+// Asignar eventos
+function asignaEventos() {
+    // Letras consonantes
+    const letras = [
+        'L2111', 'L2112', 'L2113', 'L2114',
+        'L2121', 'L2122', 'L2123', 'L2124',
+        'L2131', 'L2132', 'L2133', 'L2134',
+        'L2311', 'L2312', 'L2313', 'L2314',
+        'L2321', 'L2322', 'L2323', 'L2324',
+        'L2331', 'L2332', 'L2333', 'L2334'
+    ];
+    
+    letras.forEach(id => {
+        document.getElementById(id).addEventListener('click', pulsaLetra);
+    });
+
+    // Espacio y signos
+    document.getElementById('L221').addEventListener('click', pulsaEspacio);
+    document.getElementById('L222').addEventListener('click', pulsaLetra);
+    document.getElementById('L223').addEventListener('click', pulsaComa);
+
+    // Vocales y SÃ­/No
+    ['L31', 'L32', 'L33', 'L34', 'L35', 'L36', 'L37'].forEach(id => {
+        document.getElementById(id).addEventListener('click', pulsaLetra);
+    });
+
+    // NÃºmeros/Acentos
+    document.getElementById('L41').addEventListener('click', mostrarNumeros);
+
+    // Borrar
+    document.getElementById('L4221').addEventListener('click', borrarLetra);
+    document.getElementById('L4222').addEventListener('click', borrarPalabra);
+    document.getElementById('L4223').addEventListener('click', borrarTodo);
+
+    // Listas
+    document.getElementById('L431').addEventListener('click', lista0);
+    document.getElementById('L4321').addEventListener('click', listaMenos);
+    document.getElementById('L4322').addEventListener('click', listaMas);
+
+    // Text-to-Speech
+    document.getElementById('L1').addEventListener('click', textToSpeech);
+}
+
+// Formateo adaptativo (opcional - ya no es tan necesario con flexbox)
+function formateaPagina() {
+    let W = window.innerWidth;
+    let H = window.innerHeight;
+    
+    const factorEscala = (Math.min(W / 1440, H / 870) + Math.max(W / 1440, H / 870)) / 2;
+    
+    document.getElementById("L1").style.fontSize = 6 * factorEscala + 'em';
+    document.getElementById("L2").style.fontSize = 6 * factorEscala + 'em';
+    document.getElementById("L221").style.fontSize = 0.3 * factorEscala + 'em';
+    document.getElementById("L3").style.fontSize = 6 * factorEscala + 'em';
+    document.getElementById("L4").style.fontSize = 3 * factorEscala + 'em';
+    document.getElementById("L421").style.fontSize = 0.5 * factorEscala + 'em';
+    document.getElementById("L431").style.fontSize = 0.5 * factorEscala + 'em';
+}
+
+// InicializaciÃ³n
+function inicializar() {
+    formateaPagina();
+    asignaEventos();
+}
+
+// Event listeners
+window.addEventListener('load', inicializar);
+window.addEventListener('resize', formateaPagina);
+</script>
 </body>
 </html>
-
