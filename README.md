@@ -7,7 +7,7 @@ Esto es una [aplicación HTML](http://diegobuendia.com/JuanitaKB.htm "Juanita ke
 
 Características
 ---------------
-La aplicación está contenida en un solo fichero HTML, de modo que, una vez descargado en el navegador, es funcional aunque no se esté conectado a Internet (salvo la funcionalidad de pronunciación, que requiere acceso a http://translate.google.com).
+La aplicación está contenida en un solo fichero HTML, de modo que, una vez descargado en el navegador, es funcional aunque no se esté conectado a Internet usando la funcionalidad Text-To-Speech de los nuevos navegadores.
 
 En una pantalla táctil, la operativa consiste en pulsar sobre las letras para que aparezca en la pantalla superior el texto deseado. En la parte inferior hay dos teclas grandes, para las palabras **Sí** y **No**. Y más abajo hay una serie de pulsadores para hacer varias funciones:
 
@@ -15,7 +15,7 @@ En una pantalla táctil, la operativa consiste en pulsar sobre las letras para q
 - Borrar una letra, una palabra, toda la frase
 - Usar alguna de las frases hechas preconfiguradas
 
-Una vez escrita la frase, pulsando el panel superior se tiene que escuchar la frase pronunciada, siempre que exista acceso a los recursos de Google Translate.
+Una vez escrita la frase, pulsando el panel superior se tiene que escuchar la frase pronunciada.
 
 Historia
 --------
@@ -27,6 +27,7 @@ Mi madre se llamaba Juanita, de ahí el nombre de la aplicación. Ella murió en
 Cambios
 -------
 23-oct-2014: Implementada la funcionalidad de mostrar acentos.
+29-ene-2026: Actualizado a HTML5 y los nuevos navegadores.
 
 Mejoras pendientes
 ------------------
@@ -36,4 +37,4 @@ Mejoras pendientes
 
 Autor
 -----
-(c) Diego Buendía, 2011. 2014.
+(c) Diego Buendía, 2011. 2014. 2026.
