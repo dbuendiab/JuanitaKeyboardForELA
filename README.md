@@ -26,8 +26,8 @@ Mi madre se llamaba Juanita, de ahí el nombre de la aplicación. Ella murió en
 
 Cambios
 -------
-23-oct-2014: Implementada la funcionalidad de mostrar acentos.
-29-ene-2026: Actualizado a HTML5 y los nuevos navegadores.
+23-oct-2014: Implementada la funcionalidad de mostrar acentos.   
+29-ene-2026: Actualizado a HTML5 y los nuevos navegadores.   
 
 Mejoras pendientes
 ------------------
