@@ -1,7 +1,7 @@
 Teclado Juanita para ELA
 ========================
 
-![](https://github.com/dbuendiab/JuanitaKeyboardForELA/blob/master/alfabeto_tactil.jpg)
+![](https://raw.githubusercontent.com/dbuendiab/JuanitaKeyboardForELA/master/alfabeto_tactil.jpg)
 
 Esto es una [aplicación HTML](http://diegobuendia.com/JuanitaKB.htm "Juanita keyboard") concebida para ayudar a personas con dificultades para expresarse verbalmente. Se trata de un tablero con las letras del alfabeto, los números y varios comandos adicionales. El usuario pulsa los distintos caracteres para componer una frase, que se muestra en el panel superior. Si existe conectividad vía Internet, pulsando en el panel superior la frase se pronuncia, usando los recursos TTS de Google Translate.
 
